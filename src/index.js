@@ -1,14 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import GumballMachine from "./GumballMachine";
+// import Sprites from "./sprites.js";
+import reportWebVitals from "./reportWebVitals";
+import Sol from "./Sol";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Sol />
+    <GumballMachine />
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function
