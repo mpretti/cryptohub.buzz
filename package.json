@@ -6,10 +6,13 @@
     "@kin-sdk/client": "^0.7.0",
     "@project-serum/serum": "^0.13.38",
     "@project-serum/sol-wallet-adapter": "^0.2.0",
+    "@solana/spl-token": "^0.1.8",
+    "@solana/spl-token-registry": "^0.2.229",
     "@solana/web3.js": "^1.15.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "axios": "^0.21.3",
     "got": "^11.8.2",
     "matter-js": "^0.17.1",
     "matter-tools": "^0.14.0",
@@ -21,6 +24,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "debug": "react-scripts --inspect-brk start --no-cache",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

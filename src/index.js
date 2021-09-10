@@ -4,11 +4,10 @@ import "./index.css";
 import GumballMachine from "./GumballMachine";
 // import Sprites from "./sprites.js";
 import reportWebVitals from "./reportWebVitals";
-import Sol from "./Sol";
+// import Sol from "./Sol";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Sol />
     <GumballMachine />
   </React.StrictMode>,
   document.getElementById("root")

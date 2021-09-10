@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { setupWallet, submitPayment, requestAirdrop } from "./lib";
+import Sol from "./Sol";
 
 import Matter from "matter-js";
 const STATIC_DENSITY = 15;
@@ -36,6 +37,10 @@ const GumballMachine = () => {
       });
     }
   };
+  const testClick = () => {
+    console.log("Yum");
+  };
+
   const handleClick = () => {
     // if (kinWallet.tokenAccounts[0].balance > 0) {
     submitPayment(
@@ -211,47 +216,78 @@ const GumballMachine = () => {
   }, [someStateValue]);
 
   return (
-    <div
-      style={{
-        position: "relative",
-        border: "1px solid white",
-        paddingBottom: "512px",
-        borderBottom: "8px solid black",
-        padding: "64px"
-      }}
-    >
-      <div style={{ textAlign: "center" }}>Crypto Gumball Machine</div>
+    <>
+      <Sol />
       <div
         style={{
-          display: "grid",
-          gridTemplateColumns: "1fr auto",
-          rowGap: "16px",
-          marginBottom: "32px"
+          position: "relative",
+          border: "1px solid white",
+          paddingBottom: "512px",
+          borderBottom: "8px solid black",
+          padding: "64px"
         }}
       >
-        <div>Gumballs</div>
-        <div>{gumballCount}</div>
-        <div>Users</div>
-        <div>0</div>
-        <div>Unique Balls</div>
-        <div>1</div>
-        <div>
-          <select
-            onChange={obj => {
-              console.log(obj.target.value);
-              setAssetSelected(obj.target.value);
-            }}
-            name="assets"
-          >
-            <option value="BTC">BTC</option>
-            <option value="ETH">ETH</option>
-            <option value="KIN">KIN</option>
-            <option value="ADA">ADA</option>
-            <option value="SOL">SOL</option>
-          </select>
+        <div style={{ textAlign: "center" }}>Crypto Gumball Machine</div>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr auto",
+            rowGap: "16px",
+            marginBottom: "32px"
+          }}
+        >
+          <div>Gumballs</div>
+          <div>{gumballCount}</div>
+          <div>Users</div>
+          <div>0</div>
+          <div>Unique Balls</div>
+          <div>1</div>
+          <div>
+            <select
+              onChange={obj => {
+                console.log(obj.target.value);
+                setAssetSelected(obj.target.value);
+              }}
+              name="assets"
+            >
+              <option value="BTC">BTC</option>
+              <option value="ETH">ETH</option>
+              <option value="KIN">KIN</option>
+              <option value="ADA">ADA</option>
+              <option value="SOL">SOL</option>
+            </select>
+          </div>
         </div>
-      </div>
-      {!kinWallet && (
+        {!kinWallet && (
+          <button
+            style={{
+              cursor: "pointer",
+              display: "block",
+              textAlign: "center",
+              marginBottom: "16px",
+              width: "100%"
+            }}
+            onClick={() => createKinWallet()}
+          >
+            Create KIN Wallet
+          </button>
+        )}
+        <button
+          variant="contained"
+          onClick={async () => {
+            await requestAirdrop(kinWallet.wallet, "200", onAccountUpdate);
+          }}
+        >
+          Airdrop
+        </button>
+        {created &&
+          kinWallet &&
+          kinWallet.tokenAccounts &&
+          kinWallet.tokenAccounts.length > 0 && (
+            <>
+              <p>{kinWallet.tokenAccounts[0].balance}</p>
+            </>
+          )}
         <button
           style={{
             cursor: "pointer",
@@ -260,53 +296,37 @@ const GumballMachine = () => {
             marginBottom: "16px",
             width: "100%"
           }}
-          onClick={() => createKinWallet()}
+          onClick={() => handleClick()}
         >
-          Create KIN Wallet
+          HAVE a crypto, LEAVE a crypto. NEED a crypto, TAKE a crypto.
         </button>
-      )}
-      <button
-        variant="contained"
-        onClick={async () => {
-          await requestAirdrop(kinWallet.wallet, "200", onAccountUpdate);
-        }}
-      >
-        Airdrop
-      </button>
-      {created &&
-        kinWallet &&
-        kinWallet.tokenAccounts &&
-        kinWallet.tokenAccounts.length > 0 && (
-          <>
-            <p>{kinWallet.tokenAccounts[0].balance}</p>
-          </>
-        )}
-      <button
-        style={{
-          cursor: "pointer",
-          display: "block",
-          textAlign: "center",
-          marginBottom: "16px",
-          width: "100%"
-        }}
-        onClick={() => handleClick()}
-      >
-        HAVE a crypto, LEAVE a crypto. NEED a crypto, TAKE a crypto.
-      </button>
-      <div
-        ref={boxRef}
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          pointerEvents: "none"
-        }}
-      >
-        <canvas ref={canvasRef} />
+        <button
+          style={{
+            cursor: "pointer",
+            display: "block",
+            textAlign: "center",
+            marginBottom: "16px",
+            width: "100%"
+          }}
+          onClick={() => testClick()}
+        >
+          BIG TEST BUTTON
+        </button>
+        <div
+          ref={boxRef}
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            pointerEvents: "none"
+          }}
+        >
+          <canvas ref={canvasRef} />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
